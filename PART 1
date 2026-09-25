@@ -10,7 +10,20 @@ Float
 Character strings
 Lists
 Dictionaries
+Variables
+Logical Expressions 
+Functions
+Methods
+Screen Outputs 
 
-With simple examples using (+, - , *,) on each data type
-*Note when dividing (2) Integers, the result comes as Float, if you want to get an Integer back, you have to use //
+Key points 
+
+*Simple examples using (+, - , *,) on each data type
+
+*This chapter is just an introduction of syntax
+
+
+Did you know? (Extra)
+
+*When dividing (2) Integers, the result comes as Float, if you want to get an Integer back, you have to use //
 
