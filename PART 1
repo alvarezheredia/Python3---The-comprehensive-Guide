@@ -1,0 +1,16 @@
+PART 1 
+
+Getting Started with the Interactive Mode (47 - 58)
+
+On this part the author wants you to install Anaconda (https://www.anaconda.com/) to go along with the examples
+
+The author also explains briefly each data type:
+Integer
+Float
+Character strings
+Lists
+Dictionaries
+
+With simple examples using (+, - , *,) on each data type
+*Note when dividing (2) Integers, the result comes as Float, if you want to get an Integer back, you have to use //
+
