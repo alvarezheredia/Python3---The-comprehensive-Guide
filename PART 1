@@ -1,8 +1,8 @@
 PART 1 
 
-Getting Started with the Interactive Mode (47 - 58)
+Getting Started with Python (47 - 59)
 
-On this part the author wants you to install Anaconda (https://www.anaconda.com/) to go along with the examples
+On this part the authors wants you to install Anaconda (https://www.anaconda.com/) to go along with the examples
 
 The author also explains briefly each data type:
 Integer
@@ -27,3 +27,108 @@ Did you know? (Extra)
 
 *When dividing (2) Integers, the result comes as Float, if you want to get an Integer back, you have to use //
 
+Chapter 4 . The Path to the First Program (61 - 71)
+
+In this chapter the authors provide you with the general concept of python and how it is run in Windows & Unix-like OS. 
+
+Theres a mention for this concept named "Shebang" or "magic line" which tells the OS to always use a Python Interpreter ( this line will be ignored in Windows)
+
+They provide us with a great picture about whats the process behind a Python program 
+
+Program File 
+⬇
+Compiler
+⬇
+Byte Code ( program pyc)
+⬇
+Interpreter
+⬇
+CPU 
+
+And lastly you're provided with a loop example to get an idea about:  
+Loop Header
+Body Header
+Screen output
+
+Chapter 5. Control Structures (73 - 87)
+
+In this chapter we dive in more into Conditionals and Loops. The main difference is explained. 
+
+Conditionals - "Tie a block of code to a condition"
+Loop - "Used to execute a block of code multiple times"
+
+If statement 
+elif
+else
+while loop
+break
+continue
+pass
+
+Usage of the built in function "range" is mentioned
+
+Assignment expressions are also mentioned along with the " =: " operator. And the purpose of it is to this expression be referenced later in the program. 
+
+Note: In this chapter there are plenty of examples, i will consider this chapter now and then for future references. 
+
+Chapter 6. Files (89 - 100)
+
+In this chapter now the authors teaches us how to access a file, write it and do good practices by opening and closing files by using a with loop.  
+
+Concepts of Data Streams are mentioned. Incoming data streams (downstream) and written to outgoing data stream (upstream) 
+
+Example of opening a file: qerqw = open("python.txt", "r")
+
+Example using with statement: 
+with open("python.txt" , "r") as qwer:
+    #Do Something 
+    close
+
+Example of reading a file:
+with open("python.txt", "r") as qwer:
+    for line in qwer:
+        print(line) 
+
+Example of writing in a file:
+with open("python.txt", "w") as qwer:
+    for line in qwer:
+        qwer.write(f"{tyru})
+
+*When using "w", the current file if exist will be deleted or created if it doesnt exist.
+
+Lastly the book teaches us more advanced concepts such as: 
+-Generating the File Object 
+-The Built-IN¿n open Function
+-open(filename,[mode,buffering,encoding,errors,newline])
+-Attributes and Methods of a File Object
+-Changing the Write/Read position
+-seek(offset,[whence]) and tell()
+
+All of these are meant to be read on the second read of the book.
+
+Chapter 7. The Data Model (101 - 112)
+
+This chapter help us with understanding the main differences between instance,reference and object
+
+The structure of an instance is also mentioned: Identity, type and value 
+
+Deletion of references is also mentioned
+
+Lastly muttable and immutable data types are mentioned. 
+String & Int = immutable
+list = mutable 
+
+Chapter 8. Functions,Methods, and Attributes (113 - 116)
+
+This chapter only mentions general information about paramaters of Funcionts and Methods. This topic will be discussed in chapter 17 and 19
+
+*Positional parameters
+*Optional parameters
+*Keyword-Only Parameters 
+*Attributes 
+
+Chapter 9. Sources of Information on Python (117 - 119)
+
+The Built-In Help Function is mentioned
+Online Documentation such as : https://docs.python.org
+PEPs - Python Enhancement Proposals, to understand the point of view of changes during python existence 
