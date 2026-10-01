@@ -1,0 +1,110 @@
+Chapter 10. Basic Data Types¿: An Overview (123 - 128)
+
+In this chapter authors want to go ahead and gives us an overview of mutable and immutable data types also Operators and Operator Precedence. 
+
+A great table is provided 
+
+Data Type        Stores                                Mutability                      
+None             Nothing                               Immutable
+int              Integers                              Immutable
+float            Floats                                Immutable
+bool             Boolean values                        Immutable
+complex          Complex numbers                       Immutable
+list             Lists of any instances                Mutable
+tuple            Lists of any instances                Immutable
+str              Text as a sequence of letters         Immutable
+bytes            Binary data as a sequence of bytes    Immutable
+bytearray        Binary data as a sequence of bytes    Mutable
+dict             Key-Value mappings                    Mutable
+set              Sets of hashable instances            Mutable
+frozenset        Sets of hashable instances            Immutable
+
+As previously mentioned operators and operators precendence are mentioned but just in general, we also provided with the precende of operators  ( + , - ,* , /)as a table. full table is available in page 1018 (Appendix)
+
+Note: One important aspect mentioned in here is that when comparing instances with same operator, Python will read left to right and because of this we have to use "and" to separate each comparison and
+when using operators like these " <, <=, >, >=, ==, !=, is, isnot, in, notin. Ex. a < b and b > c 
+
+
+Chapter 11. Numeric Data Types (129 - 149)
+
+Now from this chapter moving forward we're going into mode depth into these subjects. In this case we start off by talking about general Arithmetic Operators. To then go ahead and make use of Augmented Assignments:
+
+x += y    x = x + y
+x -= y    x = x - y
+x *= y^   x = x * y 
+x /= y    x = x / y
+x %= y    x = x % y
+x **= y   x = x ** y
+x //= y   x = x // y
+Just for the purpose of readability
+
+Comparison Operators are also mentioned
+
+Conversion between Numeric Data Types
+
+Integer as a Data type in depth: 
+*There is no limit in its value range 
+*Integers can be written in multiple numeral systems - decimal, octal, hexadecimal, binary
+*Since the release of Python 3.6 you can use an underscore to group digits 
+
+Bit operations: 
+
+Operator  Augmented Assignment Result
+x & y     x &=y                Bitwise AND of x and y (AND)
+x | y     x |=y                Bitwise nonexclusive OR of x and y (OR)
+x ^ y     x ^=y                Bitwise esclusive OR of x and y (XOR)
+~x        -                    Bitwise complement of x
+x << n    x <<=n               Bit shift by n places to the left
+x >> n    x >>=n               Bit shift by n places to the right
+
+Bitwise AND 
+The bitwise AND of two numbers is formed by linking both numbers in their binary representation bit by bit. Makes a representation of the two numbers by linking both their binary 1 
+
+Bitwise OR 
+This bitwise now takes the resulting number 1 when on both numbers theres a 1 in its binary form 
+
+Bitwise Exclusive OR 
+This bitwise takes only the binaries where they differ and a 0 where they are the same
+
+Bitwise Complement 
+Forms the one's complement of a binary number, which corresponds to the negation of all occurring bits. The actual bit operation becomes an arithmetic operation and is defined as: ~x =x-1
+
+Bit Shift 
+Used to shift the bit sequence in the binary representation, its implemented arithmetically in Python, similiar to the complement operator, A shift by x corresponds to and integer division by 2ˣ and a shift to left 
+corresponds to a multiplication by 2ˣ
+
+bit_length Method is mentioned to determine the binary representation of the integer. Ex. (36).bit_length() -- integer in () is required to Python to recognize the integer 
+
+
+Floats
+-Exponential Notation is mentioned. Ex. v = 3.141e-12 (can only use decimal system) 
+-Precision. Python floats are IEEE-754 floats with double precision.
+-Infinite and Not a Number. The precision of float is limited. If you surpass the limit, the number is stored as "inf" or as "-inf" = "nan"
+
+Boolean Values:bool
+
+In this chapter is quite straightfoward, boolean data type always gives you "TRUE" or "FALSE". So couple of important details are shared such as:
+
+Logical Operators - not x , x and y , x or y 
+
+Logical AND - Everytime both match you get "TRUE" you get "TRUE"
+Logical OR - Everytime one of the two its "TRUE" you get "TRUE"
+
+Any basic data type can be converted to a Boolean type, an example is provided to convert a list and see if theres text in it. 
+
+"Lazy evaluations" are refered too. When comparing if the first statement is "TRUE" python ignores the rest. 
+
+Complex Numbers: complex 
+This section is also mentioned but since i have no experience on complex numbers author suggests to skip it.
+
+Chapter 12. Sequential Data Types (151 - 216)
+
+In this chapter now we go in depth about sequental data types which refer to the class that stores different or similar elements.
+
+The five sequential types are: str, bytes, bytearray, list, and tuple.
+
+We are told also that Python can store string data with "str" and also binary data with "bytes/bytearray" from which "bytearray" is mutable so is "lists".
+
+Theres also a table for operations on instances of sequential data types. Methods such as "max" "min" .index and .count are shown as examples.
+
+Concatenation, checking , repetition, indexing and slicing examples are shown. T
