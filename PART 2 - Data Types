@@ -107,4 +107,34 @@ We are told also that Python can store string data with "str" and also binary da
 
 Theres also a table for operations on instances of sequential data types. Methods such as "max" "min" .index and .count are shown as examples.
 
-Concatenation, checking , repetition, indexing and slicing examples are shown. T
+Concatenation, checking , repetition, indexing and slicing examples are shown. 
+
+Slicing for Copying, Slicing with Steps, length,max/min methods and index,count (method) are mentioned. (Repetitive if you ask me)
+
+List data type is also mentioned, things such as changing values via index, adding or removing new elements with indexing.
+In this chapter methods are also mentioned
+
+s.append(x)
+s.copy()
+s.extend(t)
+s.insert(i,x)
+s.pop([i])
+s.remove(x)
+s.reverse
+s.sort([key, reverse])   ---  This method only accepts keyword arguments such as "key=len" "reverse=True"
+
+*Theres an aspect about lists that is mentioned and i found important *Stable Sorting Methods* which in short is Python letting you get a better multi-level sorting. It gives you stability to run a second sort.
+
+Lasty list comprehension is addressed to simplify code and readibility
+
+Then we get into Immutable Lists:tuple 
+
+Packing,unpacking and one thing is mentioned too. If you make a tuple and inside of it you have a list, the inside of the list is mutable. 
+
+
+
+The last subject in this chapter was Str,bytes,bytesarray
+
+
+
+
