@@ -132,9 +132,329 @@ Then we get into Immutable Lists:tuple
 Packing,unpacking and one thing is mentioned too. If you make a tuple and inside of it you have a list, the inside of the list is mutable. 
 
 
-
 The last subject in this chapter was Str,bytes,bytesarray
 
+Chapter 13. Mappings and Sets (217 - 242)
 
+Mapping category establish a mapping between different objects. (The only data type for this category is : dicctionary) 
+A set is unordered collection of elements in which each element may be contained just once
+
+dict Key-value mappings Mutable
+set Sets of any instances Mutable
+frozenset Sets of any instances Immutable 
+
+Dictionary:dict = associative array. (in PHP among others), map (in C++,among others) or hash (in Perl, among others)
+Tips about dictionary creations are given such as:
+*When making a dictionary, it can be in different lines)
+*A dictionary can also be created using the built-in function
+*A dictionary can also be created using dict comprehension 
+
+Keys and Values 
+General information is given such as:
+*No key can be repeated, must be unique (if it happens that you have two same keys but differente values, the value will move forward but the key wont)
+*Keys can be of any data type but the value can only be immutable data type
+
+"This limitation occurs because the keys of a dictionary are managed using a hash value and it would make no sense have a mutable object as a hash value because it would change when the object does. Thus, affecting the dictionary key management
+
+Iteration
+
+A dictionary is an iterable object, for example:
+for key in dictionary:
+  print(key) 
+
+ouput: 
+1
+2
+3
+
+General information:
+* You can iterate either a value or a key alone using the proper method for example: 
+for value in dictionary.values(): 
+  print(value)
+* Another example using both would be : 
+for key,value in dictionary.items(): 
+  print(key, "-", value)
+*Keys are always iterated in the order in which they were added
+*It is not possible to resize the dictionary while iterating it.
+
+Operators
+
+len (d) - Returns the number of all key-value pairs contained in dictionary
+d [k] - Access to the value with key k
+del d [k] - Deletes key k and its value
+k in d - True if key k is located in d
+k not in d - True if key k not located in d
+d1 | d2 - Combines two dictionaries: d1 and d2
+
+
+len use cases:
+
+len(dictionary)
+2
+
+You can also access a value like this:
+
+dictionary["abacus"]
+'item used to teach kids how to count'
+
+Operator [] can also be used to reinsert or replace and entry in a dictionary such as:
+
+dictionary["abacus"] = "Arithmetic" 
+
+Important notice: 
+Keys of a dictionary are compared by their hash value, hence d[1] is equivalent to d[1.0]
+
+Deleting a Key-Value Pair and Testing for Specific Keys are self explanatory 
+
+Deleting a key example: del dictionary["abacus"] (Dictionary itself will still exist even without keys) 
+
+Testing for Specific Keys example: 
+"abacus" in dictionary 
+False
+
+Combining Two Dictionaries
+For this author explains it with an example:
+
+{"France": "Frankreich"} | {"Spain": "Spanien"}
+
+The | operator can also be used as an augmented assignment |= to add key-value pairs from another dictionary.
+example:
+
+d = {}
+d |= {"France": "Frankreich"}
+d |= {"Spain": "Spanien"}
+d 
+{'France': 'Frankreich', 'Spain': 'Spanien'}
+"If a keys occurs to be in both dictionaries, the corresponding key-value pair of the right operand is always included in the result"
+
+
+Methods
+
+These are also used along with operators to facilitate dictionary usage
+
+d.clear() - Emtpies dictionary d
+d.copy() - Creates a copy of d 
+d.get(k, [x]) - Returns d[k] if k is present, otherwise x 
+d.items() - Returns an iterable object that yields all key-value pairs
+d.keys() - Returns an iterable object that yields all keys of d 
+d.pop(k) - Returns the value associated with the key k and deletes the key-value pair from dictionary d
+d.popitem() - Returns an arbitrary key-value pair of d and removes it from the dictionary
+d.setdefault(k, [x]) - The opposite of get. Sets d[k] = x if key isnt present 
+d.update(d2) - Adds a dictionary d2 to d and overwrites the valeues of already existing keys if neccesary 
+d.values() - Returns an iterable object that yields all values of d 
+
+Theres also another method to create a new dictionary
+dict.fromkeys(seq, [value])
+
+Methods in use: 
+
+d.clear() 
+
+d = {"a1": "a2", "b1": "b2"}
+d.clear()
+d 
+()
+
+d.copy()
+
+d = {"a1": "a2", "b1": "b2"}
+e = d.copy()
+e = {"a1": "a2", "b1": "b2"}
+
+The values copied are referenced to the same objects. Thus, changing something on "e" will affect "d"
+
+d.get(k,[x])
+
+d = {"a1": "a2", "b1": "b2"}
+d.get("a1", 1000)
+'a2'
+
+d.get("a3", 1000)
+1000
+
+d.items()
+
+d = {"a1": "a2", "b1": "b2"}
+for pair in d.items():
+  print(pair)
+('a1', 'a2')
+('b1', 'b2')
+
+d.keys()
+
+d = {"a1": "a2", "b1": "b2"}
+for key in d.keys:     / Also for key in d: (can be used) 
+  print(key)
+a1
+b1
+
+d.pop(k)
+
+d = {"a1": "a2", "b1": "b2"}
+d.pop("a1")
+'a2'
+d
+{"a2", "b1": "b2"}
+
+d.popitem()
+
+d = {"a1": "a2", "b1": "b2"}
+d.popitem("a1")
+('a1': 'a2')
+d
+{'b1': 'b2')
+
+
+d.setdefault(k,[x])
+
+d = {"a1": "a2", "b1": "b2"}
+d.setdefault("c1", "c2")
+'c2'
+d
+d = {"a1": "a2", "b1": "b2", "c1": "c2"}
+
+d.update(d2)
+
+d = {"a1": "a2", "b1": "b2"}
+d.update({"c1": "c2"])
+d
+d = {"a1": "a2", "b1": "b2", "c1": "c2"}
+
+If both dictionaries have same key, d2 will overide 
+
+d.values()
+
+d = {"a1": "a2", "b1": "b2"}
+for values in d.values:     / Also for values in d: (can be used) 
+  print(key)
+a2
+b2
+
+dict.fromkeys(seq,[value])
+
+dict.fromkeys([1,2,3], "pythonbook"])
+{1: 'pythonbook', 2: 'pythonbook', 3: 'pythonbook'}
+
+
+Dict. Comprehensions 
+
+Author compares Lists Comprehensions with dictionary comprehensions, which are similar the main difference is on {},colons and that you have to specify the value for the key
+
+
+Sets:set and frozen set
+An unordered collection of elements in which element may be presented only once.
+
+To create a set it can only contain immutable data elements, it works the same as dictionaries in term of hash values
+
+An empty instance of the data type set and frozenset will be created as:
+set()
+frozenset()
+
+This due to {} cannot be used, because it will create an empty dictionary. 
+
+
+Iteration 
+
+Sets are mentioned such as. A set is an object that can be itered in a for loop. Unlike the keys in a dictionary the order of a set will be determined by the hash table underlying the set.
+"Hash randomization" with the purpose of preventing malicious DoS on hash tables so everytime you start the interpreter a different hash table will be deployed, meaning different order iteration
+
+Operators 
+
+len(s) - Returns the numbers of all elements contained in set s
+x in s - True if x is contained in set s, otherwise False
+x not in s - True if x is not contained in set s, otherwise False
+s <= t - True if set s is a subset of set t, otherwise False
+s < t - True if set s is proper subset of set t, otherwise False
+s >= t -True if set t is a subset of set s, otherwise False
+s > t - True if set t is a proper subset of set s, otherwise False
+s | t - Creates a new set containing all elements of s and t. Forms the union of two sets
+s & t - Creates a new set containing the objects that are both elements of set s and elements of set t. Forms intersection of two sets 
+s - t - Creates a new set with all elements of s except those also contained in t. Difference of sets
+s ^ t - Creates a new set containing all objects that occur in either s or t, but not both
+
+Augmented assignments also exists for some of the operators
+
+s |= t - s = s | t
+s &= t - s = s & t
+s -= t - s = s - t
+s ^= t - s = s ^ t
+
+These operators also exists for frozenset but instead of changing the set, it creates a new frozen set instance 
+
+Differences between subsets and propersubsets are mentioned ( <= , >= )
+
+Example: 
+
+a = {1,2,3}
+s = {1,2}
+
+a <= s
+False 
+
+a >= s
+True 
+
+Union of two sets 
+
+Usage of operator '|' and '&' 
+Where | puts two sets together and & creates a new set with the intersection of the elements 
+
+There is a relationship with these operators to bitwise usage: '|' = OR and '&' = AND
+
+Difference between Sets
+
+usage of operator '-' is exhibited for example: 
+
+a = {1,2,3}
+s = {1,2}
+
+a - s 
+3
+Meaning only the elements that are not shared between each other live and the first operand is the one with priority 
+
+Symmetric Difference of two Sets
+
+With the usage of operator '^' you can create another set excluding the shared elements between sets 
+This operator is shared also with bitwise usage XOR
+
+Methods 
+
+Set and frozenset data types have a small amount of methods which are equivalent to last operators with the main difference that you can use any sequential data type for the argument
+
+s.issubset(t) - Equivalent to s <= t
+s.issuperset(t) - Equivalent to s >= t
+s.isdisjoint(t) - Checks whether the sets s and t are disjoint (to see if they an empty intersection)
+s.union(t) - Equivalent to s | t 
+s.intersection(t) - Equivalent to s & t
+s.difference(t) - Equivalent to s - t
+s.symmetric_difference(t) - Equivalent to s ^ t
+s.copy() - Creates a copy of set s
+
+Mutable Sets:set 
+
+s.add(e) - Inserts object e as an element into set s
+s.clear() - Deletes all elements of set s, but not the set itself
+s.difference_update(t) - Equivalent to s-= t
+s.discard(e) - Deletes element e from set s. If e is not present this will be ignored
+s.intersection_update(t) - Equivalent to s &= t
+s.remove(e) - Deletes element e from set s
+s.symmetric_difference_update(t) - Equivalent to s ^= t
+s.update(t) - Equivalent to s |= t 
+
+All examples are straightforward, such as adding, clearing, deleting and removing elements
+
+Immutable Sets:frozenset
+
+Here is mentioned that to initiate a frozenset is necesary to use elements that can be hashable and iterable. list, tuple, set, dict, string, or range along with numbers,strings,tuples,frozensets
+
+
+fs_empty = frozenset()
+fs_full = frozenset([1,2,3,4])
+
+fs_empty
+frozenset
+
+fs_full
+frozenset([1,2,3,4])
 
 
