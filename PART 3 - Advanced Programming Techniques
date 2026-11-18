@@ -1,5 +1,31 @@
 Chapter 17. Functions (279 - 326)
 
+A function in programming consists of a function name, a list of function parameters, and a code block - the function body. When a function is called, the function body is executed, taking into account the arguments passed.
+A function in Python, such as len, may or may not have a return value.
+
+Functions are used in programming to avoid redundancies in the source code.
+
+Defining a Function 
+
+A function must have a name by which it can be called in other parts of the program. The composition of the function name follows the same rules as the naming of an identifier.
+A function must have an interface through which information is transferred from the calling program part to the context of the function, each of these parameters is given a name. They can then be used like references in the function body.
+A function must return a value. Each function automatically returns None if the return value is not explicitly specified. 
+
+To define a function in Python, you can use the def keyword. Like this: 
+
+def function_name(parameter_1, ..., parameter_n)
+    Statement_1
+    Statement_2
+    ..
+
+The def keyword is followed by the selected function name. After that, the names of all parameters are listed in parantheses. The definition of the interface is followed by a colon and, indented by one step, the function body.
+The function body can be any code block which the parameter names may be used as references. Within the function body, you can also call functions.
+
+Return Values
+
+
+
+
 Chapter 18. Modules and Packages (327 - 338)
 
 Chapter 19. Object-Oriented Programming (339 - 398)
