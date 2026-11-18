@@ -457,4 +457,587 @@ frozenset
 fs_full
 frozenset([1,2,3,4])
 
+Chapter 14. Collections (243 - 250) 
 
+In this chapter the content of collections module is addressed. This is a library for the sole purpose of expanding normal data types usage.
+
+ChainMap - A concatenation of dictionaries
+Counter - A dictionary for recording frequencies 
+defaultdict - A dictionary that supports a default value for not included keys
+deque - A doubly linked list
+namedtuple - A function to create named tuples
+
+Examples of the functions are exhibited
+Also methods such as: d.elements(), d.most_common([n]), d.subtract([iterable]), d.update([iterable]). 
+
+The deque supports the efficient insertion of elements at the beginning or end of a list.
+
+appendleft(x) - Inserts the element x at the beginning of the list
+clear() - Empties the list
+extendleft(iterable) - Inserts the elemenets from iterable at the beginning of the list
+popleft() - Returns the first element and removes it from the list
+rotate(n) - Rotates the list by n elemenets. This means the least n elements of the list are deleted and inserted at the beginning
+
+deque supports elements via indexes, but its slower than basic data type list.
+
+Method namedtuple(typename,field_names,{rename}) is provided along with an example.
+
+Chapter 15. Date and Time (251 - 272) 
+
+"These modules are useful to help you work with time and date information"
+
+The time module is oriented towards the implemented functions while datetime is object-oriented for working with points in time and time spans. Author states
+
+time module is based on the time functions of the C library therefore stores all time data as Unix time stamps
+
+When dealing with time stamps, it's important to distinguish between two indications: local time and Coordinated Universal time
+
+UTC (Coordinated Universal time) 
+(DST) dayligh saving time - This one depends on each region. time finds out for the programmer which DST value is the correct one on the used platform
+
+Theres another representation of times via struct_time data type
+
+Index Attribute Meaning Value Range
+0     tm_year  The year  1-12
+1     tm_mon   The month 1-31
+2     tm_mday  The day in the month 0-31
+3     tm_hour  The hour  0-23
+4     tm_min   The minute 0-59
+5     tm_sec   The second 0-61
+6     tm_wday  The weekday 0-6
+7     tm_yday  The day in the year 0-366
+8     tm_isdst Indicates whether the time stamp has been adjusted for DST  0:NO / 1:Yes / -1:Unknown
+
+time module contains these attributes: 
+
+Attribute  Description
+altzone    Shift of local time including DST against UTC in seconds
+daylight   Indicates whether the locla time zone uses DST
+timezone   Shift of local time without DST against UTC in seconds
+tzname     Time zone description
+
+"The daylight constant has a value different from 0 if the local time zone uses DST. If DST is not used in the local time zone, daylight has the value 0. The shift caused by DST can be determined using the altzone constant. The altzone constant should only be used if daylight doesnt have the value 0."
+
+"The tzname constant contains a tuple with two strings. The first string is the name of the local time zone, while the second one is that of the locla time zone with DST. If the local time doesnt use DST, you shouldnt use the second element of the tuple."
+
+Table for function in time module 
+
+Function             Description
+asctime([t])         Converts the passed struct_time instance to a string
+perf_counter()       Provides points in time suitable for measuring the performance of programs 
+perf_counter_ns() 
+ctime([secs])        Converts the passed Unix time stamp to a string. If no time stamp was passed, the current system time is used
+gmtime([secs])       Converts a Unix time stamp to a struct_time instance. This is based on UTC.
+localtime([secs])    Converts a Unix time stamp to a struct_time instance. The local time is used as a basis.
+mktime(t)            Converts a struct_time instance to a Unix time stamp. The local time is used as a basis.
+sleep(secs)          Interrupts the program flow for the passed time span in seconds.
+strftime(format, [t]) Converts a struct_time instance to a string according to the passed rules.
+strptime(string,[format]) Interprets a string as time according to the passed rules and returs a matching struct_time instance.
+time()               Returns the current Unix time stamp. This is based on UTC.
+time_ns()
+
+Example for asctime([t])
+time.asctime((1987, 7, 26, 10, 40, 0, 0, 0, 0))
+'Mon Jul 26 10:40:00 1987'
+
+"If the oprtional parameter t isn't passed, then asctime returns a string for the current system time."
+The ctime function works the same way as asctime, but for Unix time stamps
+
+Example for perf_counter(), perf_counter_ns()
+
+start = time.perf_counter()
+compute_intensive_function()
+end = time.perf_counter()
+print(f"The function ran for {end-start:1.2f}seconds")
+The function ran for 7.46 seconds
+
+The main difference about these two is that perf_counter_ns, is the the result given. This last one gives you the result in nanoseconds rather than as float in seconds.
+
+Example of gmtime([secs])
+
+This function converts a Unix time stamp into a struct_time object. UTC is always used, and the tm_isdst attribute of the resulting object always has the value 0.
+If the secs parameter isn't passed or has the value None, the current time stamp is used as returned by the time function:
+
+time.gmtime()
+time.struct_time(tm_year=2022, tm_mon=7, tm_mday=1, tm_hour=22, tm_min=21, tm_sec=13, tm_wday=4, tm_yday=182, tm_isdt=0)
+
+This example was executed according to UTC on July 1, 2022, at 22:21
+
+Example of localtime([secs])
+
+"This is just like gmtime, but this functions converts the passed time stamp into a specification of the local time zone."
+
+Example of mktime(t) 
+
+This function converts a struct_time instance to a Unix time stamp of the local time. The return value is a float.
+The localtime and mktime functions are inverse functions of each other
+
+Overview of strftime(format,[t]) function
+
+This function converts the struct_time instance t or a nine-element tuple t into a string. The first parameter named format is passed a string containing the desired format of the output string
+Similar to the format operator for strings, the format string contains multiple placeholders that are replaced with the corresponding values in the result.
+
+Characters      Meaning
+%a              Local abbreviation for the name of the day of the week.
+%A              Complete name of the day of the week in the local language.
+%b              Local abbreviation for the name of the month.
+%B              Complete name of the month in the local language.
+%c              Format for appropiate date and time representation on the local platform.
+%d              Number of the day in the current month. Results in a string of length 2 in range[01,31]
+%H              Hour in 24-hour format. The result always has two digits and is in the range [00,23]
+%I              Hour in 12-hour format. The result always has two digits and is in the range [01,12]
+%j              Number of the day in the year. The result always has three digits and is in the range [001,366]
+%m              Number of the month,consisting of two digits in the range [01,12].
+%M              Minute as a number consisting of two digits. Is always in the range [00,59].
+%p              Local equivalent for a.m. or p.m.
+%S              Seconds as a number consisting of two digits. Is always in the range [00,61].
+%U              Number of the current week in the year, with Sunday being considered the first day of the week. The result has two digits and is in the range [01,53]. The period at the beginning of the year before the first Sunday is defined as week 0.
+%w              Number of the current day in the week. Sunday is considered day 0. The result is in range [0,6].
+%W              like %U, except that instead of Sunday, Monday is considered day 0 of the week.
+%x              Date format of the local platform.
+%X              Time format of the local platform
+%y              Year without century indication. The result always consists of two digits and is in the range [00,99].
+%Y              Complete year with century indication.
+%Z              Name of the local time zone, or an empty string if no local time zone has been set.
+%%              Results in a percentage sing % in the result string. 
+
+Example for strptime(string, [format])
+
+You can use strptime to convert a time string back to a time.struch_time instance. The format parameter specifies the format in which the string contains the time. The structure of such format strings is the same as for strftime:
+
+time_string = '19.09.2007 at 00:21:17'
+time.strptime(time_string, %d.%m.%Y at %H:%M:%S")
+time.struch_time(tm_year=2007, tm_mon=9, tm_mday=19, tm_hour=0, tm_min=21, tm_sec=17, tm_wday=2, tm_yday=262, tm_isdst=-1)
+
+If format is not specified the default "%a %b %d %H:%M:%S %Y" value is used.
+
+
+time(), time_ns()
+
+Returns the current Unix time stamp in UTC as a float. Not all systems support a higher resolution that one second,so the fractional part isn't necessarily reliable.
+The time_ns variant differs from time in such a way that the result isn't returned as a float in seconds, but as an integer in nanoseconds.
+
+
+The datetime module is more abstract that the time module and also more convenient to use due to its own time and date types.
+
+Data Types of datetime 
+
+date       A data type for storing dates.
+time       Saves points in time for a specific day.
+datetime   The combination of datetime, date and datetime.time to store times that include both a date and a time.
+timedelta  It's possible to create differences between datetime.date and datetime.datetime instances. The result of such subtractions are datetime.timedelta objects.
+
+
+datetime.date 
+
+Describes a day on the timeline by storing the year,month, and day in its attributes for example:
+
+d = datetime.date(1995, 3, 28)
+d
+datetime.date(1995, 3, 28)
+
+You can use datetime.today() to create a datetime.date instance representing the current day, whereas to create a datetime.date instance from a Unix time stampm you can use datetime.date.fromtimestamp class method:
+
+datetime.date.today()
+datetime.date(2026, 11, 17)
+
+datetime.date.fromtimestamp(0)
+datetime.date(1970, 1, 1)
+
+List of most important methods for handling datetime.date instances: 
+
+Method                             Description
+ctime()                            Generates a string specifying 
+fromisoformat(date_string)         Creates a datime.date instance from a stirng of the form "YYYY-MM-DD".
+isoformat()                        Converts the datetime.date instance to a string of the form "YYYY-MM-DD":
+replace({year,month,day})          Creates a new datetime.date instance from an existing one by replacing individual elements.
+strftime(format)                   Converts the datetime.date instance to a string according to a format description.
+strptime(date_string, format)      Converts the date specified in date_string to a datetime.date instance according to a format description.
+timetuple()                        Creates a time.struct_time instance corresponding to the date of the datetime.date instance.
+weekday()                          Returns the day within the week. In this context, 0 corresponds to Monday and 6 to Sunday.
+
+
+datetime.time 
+
+Objects of the datetime.time type are used to manage times of day based on the hour,minute, second, and microsecond.
+Each of these attributes can be passed to the constructor, with the default value being 0 in each case: 
+
+>>>datetime.time(2, 30, 25)
+datetime.time (2, 30, 25)
+>>>datetime.time(minute=10)
+datetime.time(0, 10)
+>>>datetime.time(hour=12, second=36, microsecond=123456)
+datetime.time(12, 0, 36, 123456)
+
+Most important methods of the datetime.time data type: 
+
+Method                                        Description
+fromisoformat(time_string)                    Creates a datetime.time instance from a string of the form "HH:MM:SS.mmmmmm".
+isoformat()                                   Creates a string in the format "HH:MM:SS.mmmmmm", which describes the time. If the microsecond attribute has the value 0, the string has the format "HH:MM:SS".
+replace([hour, minute,second,microsecong])    Creates a new time instance from an existing one by replacing the passed information
+strftime(format)                              Converts a time instance into a string according to the passed format description.
+strptime(date_string,format)                  Converts the date specified in date_string to a datetime.time instance according to a format description.
+
+datetime.datetime
+
+The datetime.datetime data type is exactly what its name suggets: a type for storing a combination of date and time information. 
+
+
+datetime(year,month,day,[hour,minute,second,microsecond])
+
+As with datetime.date and datetime.time, new datetime.datetime instances are cated by specifying the respective componets of the time. The parameters have the same meaning as the identically named elements of the constructors of date and time.
+
+>>> gifts = datetime.datetime(1989, 12, 25, 18, 30)
+>>> gifts
+datetime.datetime(1989, 12, 25, 18, 30)
+
+A datetime instance has an attribute for each of these parameters. For example:
+
+>>> gifts.minute
+30
+>>> gifts.month
+12
+
+
+now()
+
+The now() method creates a datetime instance that stores the current local time. 
+
+>>> datetime.datetime.now()
+datetime.datetime (2026, 11, 17, 12, 10, 1, 25484)
+
+fromtimestamp(timestamp)
+
+The fromtimestamp method creates a datetime.datetime instance that represents the same time as the Unix time stamp passed for timestamp in the system's local time:
+
+>>> datetime.datetime.fromtimestamp(0)
+datetime.datetime (1970, 1, 1, 1, 0)
+
+
+combine(date,time) 
+The combine method creates a datetime.datetime object that stems from the combination of date and time. The date parameter must contain a datetime.date instance, and time parameter must refer to a datetime.time object.
+
+strptime(date_string,format)
+The strptime method interprets the string passed as the date_string parameter as time information according to the format description from format and returns a corresponding datetime object. 
+
+Most important methods of datetime.datetime instances
+
+Method                                                                    Description
+ctime()                                                                   Converts a datetime instance to a string in the format 'Tue Ot 23 16:03:12 1989'.
+date()                                                                    Returns a datetime.date object corresponding to the day of the datetime instance.
+fromisoformat(date_string)                                                Creates a datetime.date instance from a string of the form "YYYY-MM-DDTHH:MM:SS.mmmmmm":
+isoformat([sep])                                                          Converts the datetime instance to a string in the format "YYYY-MM-DDTHH:MM:SS.mmmmmm", where sep can be used to specify a string that acts as a separator between date and time information.
+replace([year,month, day, hour, minute, second, microsecond])             Creates a new datetime instance from the existing one by replacing the passed values.
+strftime(format)                                                          Converts a datetime object to a string according to a format description.
+time()                                                                    Returns a datetime.time object corresponding to the time of the day of the datetime instance.
+timetuple()                                                               Creates a time.struct_time instance that describes the same time as the datetime instance.
+weekday()                                                                 Returns the day of the week as a number, where Monday is 0 and Sunday is 6.
+
+
+datetime.timedelta 
+
+Instances of the datetime.timedelta data type can be used to describe time spans, such as those that occur when you create the difference between two datetime.datetime instances: 
+
+>>> d1 = datetime.datetime(1989, 1, 9, 12, 0, 0)
+>>> d2 = datetime.datetime(1989, 2, 10, 20, 15, 0)
+>>> delta1 = d2 - d1
+>>> delta1
+datetime.timedelta(days=32, seconds=29700)
+
+timedelta([days, seconds, microseconds, milliseconds, minutes, hours,weeks])
+To create a datetime.timedelta instance that points 32 days and 29,700 seconds into the past, you can use the following call:
+
+>>> datetime.timedelta(days=-32, seconds= -29700)
+datetime.timedelta(days=-33, seconds=56700)
+
+All parameters are optional and have the default value 0, and floats can be passed in addition to integers. In this case, all fractional parts of days are combined and the value rounded to the nearest timedelta instace:
+
+>>> datetime.timedelta(days=0.5)
+datetime.timedelta(seconds=43200)
+
+The only method of a time.delta.timedelta instance is total_seconds(), which converts a time span to an indication in seconds. The return value is a float so that the microsecond portions can also be represented:
+
+>>> delta1 = datetime.timedelta(days=32, seconds=29700)
+>>> delta1.total_seconds()
+2794500.0
+>>> delta2 = datetime.timedelta(days=32, seconds=29700, milliseconds=123)
+>>> delta2.total_seconds()
+2794500.123
+
+A datetime.timedelta instance can be viewed as a simple number-namelym its equivalent in seconds. 
+>>> week = datetime.timedelta(days=7)
+>>> day = week/7
+>>> day 
+datetime.timedelta(days=1)
+
+>>> year = 52*week * day
+>>> year
+datetime.timedelta(days=365)
+>>> year/week
+52.142857142857146
+
+Available arithmetic operations for datetime.timedelta instances: 
+
+Operations(t1,t2 timedelta instances, i int Instance, f float instance)
+
+t1 * t2                              Calculates the sum of two timedelta instances.
+t1 - t2                              Calculates the difference of two timedelta instances.
+t1 * i                               Creates a timedelta instance that is i or f times as long as t1. If the sign of i or f is negative, the direction on the time axis is also reversed.
+t1 * f
+t1 / t2                              Forms the quotient of two timedelta instances or one timedelta instance and an integer or float
+t1 / i
+t1 / f
+t1 // t2                              Like the / operator, except that it's additionally rounded down to the next smaller integer.
+t1 // i
+t1 % t2                              Returns the division remainder when dividing two timedelta instances as a timedelta instance
+<, <=, >, >=                         Compares two timedelta instances
+q,r = divmod(t1,t2)                  Generates a tuple of q = t1//t2 and r = t1%t2 that is the rounded quotient and the division remainder
+abs(t1)                              Creates a timedelta instance describing the same durations as t1, but pointing in the direction of the positive time axis
+
+
+Operations for datetime.datetime and datetime.date
+
+Differences between two datetime.date or two datetime.datetime instances are possible: 
+
+>>> p = datetime.date(1987, 1, 9)
+>>> j = datetime.date(1987, 7, 26)
+>>> delta1 = j-p
+>>> delta1
+datetime.timedelta(days=198)
+
+>>> s = datetime.datetime(1995, 1, 1)
+>>> o = datetime.datetime(1995, 5, 4, 12, 00)
+>>> delta2 = o - s
+>>> delta2
+datetime.datetime(days=123, seconds=43200)
+
+Also Comparison operators can be used, for example:
+
+>>> datetime.date(1987, 7, 26) < datetime.date(1987, 11, 3)
+True 
+
+
+Time Zones:zoneinfo
+Python provides support for dealing with local time zones in addition to the functions. 
+
+The IANA Time Zone Database
+To work with time data in local time zones, you first need a data basis. The Internet Assigned Numbers Authority (IANA) standarization organization regularly published a time zone database, often referred to as tz database or zoneinfo. In it, you can find two ways to divide the world into time zones.}
+
+Administrative Time Zones
+Classically, the world is divided into administrative time zones with a fixed offset from UTC. For example of an administrative time zone is Central European Time (CET), with a fixed offset of one hour from UTC (UTC+1)
+
+Time Zones by Geographical Area
+The prevailling alternative is the division into geographical areas that have historically had a single definition of time.
+
+
+Downloading the Database 
+The IANA time zone database is already installed on many systems and is maintained and kept up-to-date by the system provider. For this reason, Python always uses the system's default database if available.
+
+Some Operating systems, like Microsoft Windows, use other sources for defining time zones instead that are incompatible with the zoneinfo module. For this reason, the Python package index (PyPI) contains the tzdata package, which can be installed via pip:
+$ pip install tzdata
+
+In Anaconda environments, the tzdata package is available by default.
+
+
+Specifying the Time in Local Time Zones
+To specify a time with reference to a local time zone, the tzinfo parameter can be used when instantiating datetime.time or datetime.datetime. For this a purpose an instance of the ZoneInfo class from the zoneinfo module of the standard library can be passed. Which is used to describe a time zone:
+
+>>> from datetime import datetime, timedelta
+>>> from zoneinfo import ZoneInfo
+>>> d = datetime(2022, 3, 26, 12, tzinfo=ZoneInfo("Europe/Berlin"))
+
+When you output the datetime instance via print, you can see that the date and time information has been augmented by its difference from Coordinated Universal Time:
+>>> print(d)
+2022-03-26 12:00:00+01:00
+
+With the astimezone method, you can convert the date and time to any other time zone: 
+>>> print(d.astimezone(ZoneInfo("UTC")))
+2022-03-26 11:00:00+00:00
+>>> print(d.astimezone(ZoneInfo("America/New_York")))
+2022-03-26 07:00:00-04:00
+
+Calculating with Time Indications in Local Time Zones 
+
+Using datetime in combination with zoneinfo allows the programmer to conveniently compare and account for time data in local time zones. Howewer, there is an important feature to consider.
+
+>>> d1 = datetime(2022, 3, 26, 12, tzinfo=ZoneInfo("Europe/Berlin"))
+
+Now lets imagine we want to increment the time described by d by one day:
+
+>>> d2 = d1 + timedelta(days=1)
+
+The result is now in DST and can be seen in two perspectives:
+
+In the time interval perspective, you would expect there to be exactly one day, or 24 hours, between d1 and d2. Therefore, you'd expect the result to be March 27 2022, at 1 p.m. due to the change to DST. 
+This view is relevant when time differences are considered as actual time passed-for example, in the context of a runtime measurement.
+
+In the calendrical perspective, you would expect there to be exactly one calendrical day between d1 and d2. In this case, you'd expect the result to be March 27, 2022, at 12 (noon)
+regardless of any change to DST. This is particularly relevant when calendar time differences are considered- for example, in the context of regularly recurring events
+or notifications at a specific time of day.
+
+
+Calculating with Time Data of the Same Local Time Zone
+
+>>> d1 = datetime(2022, 3, 26, 12, tzinfo=ZoneInfo("Europe/Berlin"))
+>>> d2 = d1 + timedelta(days=1)
+
+This operation takes places exclusively within the Europe/Berlin local time zone, and accordingly the result is also understood in this time zone.
+In such operations, the calendar view is always used, so that d2 indicates the same time as d1 despite the change to DST: 
+
+>>> print(d2)
+2022-03-27 12:00:00+2:00
+
+You can recognize the change between DST and standard time by the tzname, utcoffset, and dst methods, each of which expresses different aspects:
+
+>>> d1.tzname()
+'CET'
+>>> d2.tzname()
+'CEST'
+
+The tzname method specifies the administrative time zone in effect at the times of d1 and d2 respectively.
+
+>>> d1.utcoffset()
+datetime.timedelta(seconds=3600)
+>>> d2.utcoffset()
+datetime.timedelta(seconds=7200)
+
+The utcoffset method specifies the offset from UTC valid at the respective times of d1 and d2 as a timedalta instance. In this example d2 shows an additional shift of one hour due to the applicable DST:
+
+>>> d1.dst()
+datetime.timedelta(0)
+>>> d2.dst()
+datetime.timedelta(seconds=3600)
+
+The dst method specifies the shift between the d1 and d2 times and the respective standard time of the region.
+
+Calculating with Time Data of Different Local Time Zones
+Unlike calculations within a local time zone, calculations across different time zones don't use the calendar view. Instead, the result is understood as an absolute time span. For example, consider times d3 and d4 in the NY local time zone:
+
+>>> d3 = datetime(2022, 3, 26, 12, tzinfo=ZoneInfo("America/New_York"))
+>>> d4 = d3 + timedelta(days=1)
+>>> d3.tzname()
+'EDT'
+>>> d4.tzname()
+'EDT'
+
+Calling tzname confirms that there's no change between DST and standard time at these times in the local time zone of NY. If you now calculate the difference between the German d1 and d2 times and the corresponding d3 and d4 times in NY, the DST starting in Germany is reflected in the result and the results are thus to be understood as absolute time spans:
+
+>>> d3 - d1
+datetime.timedelta(seconds=18000)
+>>> d4 - d2
+datetime.timedelta(seconds=21600)
+
+
+Chapter 16. Enumerations and Flags (273 - 276)
+
+Enumerations are part of the standard library that Python uses. This is not a defined data type, but rather an approach to defining your own task-specific data types
+
+Enumeration Types:enum
+
+An enumeration type is a data type whose value range is a set of symbolic constants. An example of this is the data type weekday, whose instances each represent one day of the week.
+With the mans described, this data type can be implemented as an integer or a string. Both variants assume an implicitly defined assignment of numbers or character strings to be abstract "days of the week" concept. 
+But this kind of assignment poses some problems:
+
+The operator of the int and str data types are still available, but they lose their meaning. 
+There's no check or whether the value assigned to a weekday variable is valid
+The value of a weekday variable can be compared to other int or str instances without a weekday meaning. Possibly worse, day of the week variables can be compared to values representing instances of other enumerations, such as traffic light colors.
+For screen outputs, the day of the week isn't output, but the internally assigned value in the worst case, a number without any reference to the parent concept. This makes it difficult to understand debug output, for example.
+
+The enum module from the standard library provides the basic enum class for immutable enumeration types. In the following example, the already mentioned weekday data type is implemented as an enumeration type:
+
+>>> import enum
+>>> class Weekday(enum.Enum):
+      Monday = 1
+     Tuesday = 2
+     Wednesday = 3
+     Thursday = 4
+     Friday = 5
+     Saturday = 6
+     Sunday = 7
+
+For each day of the week, a symbolic constant is created in the weekday class derived from enum. Each constant is assigned an internal value. This value is an integer in this case, but it doesn't have to be.
+
+A concrete day of the week can now be created using the defined constant, the assigned internal value, or its name:
+>>> Weekday.Saturday
+<Weekday.Saturday: 6>
+>>> Weekday(6)
+<Weekday.Saturday: 6>
+>>> Weekday["Saturday"]
+<Weekday.Saturday: 6>
+
+Enumeration types allow for running through their values. Any aliases will be skipped(aliases are enumetation values that are assigned the same internal value as a previously defined enumeration value): 
+
+>>> for day in Weekday:
+    print(day)
+
+Weekday.Monday
+Weekday.Tuesday
+Weekday.Wednesday
+Weekday.Thursday
+Weekday.Friday
+Weekday.Saturday
+Weekday.Sunday
+
+Since Python 3.6, the auto function is avialable, which can be used to define an enumeration type without assigning concrete internal values:
+>>> class Weekday(enum.Enum):
+          Monday = enum.auto()
+          Tuesday = enum.auto()
+          Wednesday = enum.auto()
+          Thursday = enum.auto()
+          Friday = enum.auto()
+          Saturday = enum.auto()
+          Sunday = enum.auto() 
+>>> Weekday.Monday
+<Weekday.Monday: 1>
+
+Enumeration Types for Bit Patterns:Flag
+
+Python 3.6 introduced Flag enumeration type, which defines the internal values so that the symbolic constants can be combined using bitwise operators. This is illustrated by the following example, in which the state of a traffic light system is represented by a combination of symbolic constants:
+
+>>> class TrafficLight(enum.Flag):
+        Red = enum.auto()
+        Amber = enum.auto()
+        Green = enum.auto()
+
+With the help of the bitwise operator OR, two symbolic constant, also referred to as flags, can be combined:
+
+>>> combined_state = TrafficLight.Red | TrafficLight.Amber
+
+The bitwise AND can be used to check whether a symbolic constant is included in a combination:
+
+>>> combined_state & TrafficLight.Red
+<TrafficLight.Red: 1>
+>>> combined_state & TrafficLight.Green
+<TrafficLight: 0>
+
+The result of the bitwise AND can be interpreteed as a truth value:
+
+>>> bool(combined_state & TrafficLight.Red)
+True
+>>> bool(combined_state & TrafficLight.Green)
+False 
+
+Integer Enumeration Types:IntEnum 
+
+One advantage of the enum enumeration type is that the symbolic enumeration values are strictly separated from their internal representations. For this reason, the comparison between the symbolic value Weekday.Monday and the numeric value 1 always evaluates to False, even though the value 1 is the internal representation of Weekday.Monday in the enumeration.
+
+Occasionally, however, this kind of comparibility is explicitly desired. For this purpose, the enum module contains the IntEnum data type, which can be used in a similar way to enum.
+Enumeration values of an enumeration type that inherits from IntEnum can be used as if they were integers:
+
+>>> class Weekday(enum.IntEnum):
+      Monday : 1
+      Tuesday : 2
+      Wednesday : 3
+      Thursday : 4
+      Friday : 5
+      Saturday : 6
+      Sunday : 7
+
+>>> Weekday.Monday < 10
+True
+>>> Weekday.Monday * 2
+2
+>>> Weekday.Monday + Weekday.Tuesday
+3
+
+Also comparisons and operations with values of different IntEnum enumerations are permitted.
