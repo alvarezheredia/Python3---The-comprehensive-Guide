@@ -23,6 +23,123 @@ The function body can be any code block which the parameter names may be used as
 
 Return Values
 
+In this subchapter the autor explains the usage of return values, to handle functions. Examples like these are presented: 
+
+def fac(number):
+    result = 1
+    for i in range(2, number + 1)
+        result *= i
+    return result
+
+while True:
+    user_input = int(input("Enter a number: "))
+    print(fac(user_input))
+
+
+Function Objects
+A function can be not only called by its name but also treated like an instance. For example it's possible to query the type of a function.
+By defining a function, a function object is created, which is referenced by the function name.In Python, functions are instances.
+
+Optional Parameters
+An optional parameter must be preassigned with a value internally in the function, usually a default value, which is sufficient in most function calls.
+To preset a function parameter with a default value, this value is written after the parameter name in the function together with an equal sign.
+
+>>> def my_sum(a, b, c=0, d=0):
+        return a + b + c + d
+
+Keyword Arguments
+This is an alternative technique of passing arguments when calling a function. Nothing changes in the function definition. 
+
+Example: 
+
+>>> my_sum(d=1, b=3, c=2, a=1)
+7
+
+Arbitrarily Many Parameters 
+There is a way to accept any amount of parameters and thats when positional and keyword argument passing is used.
+
+Example for positional: 
+
+>>> def function(a, b, *other)
+        print("Fixed parameters:", a, b)
+        print("Other parameters:", other)
+
+>>> function(1, 2)
+Fixed parameters: 1 2
+Other parameters: ()
+
+>>> function(1, 2, "Hello World", 42, [1,2,3,4])
+Fixed parameters: 1 2
+Other parameters: ('Hello World', 42, [1,2,3,4])
+
+an asterisk is used '*' 
+It gives you a tuple
+
+The difference with keyword arguments is that we are going to use '**' instead and it's going to give us a dictionary.
+
+Example: 
+
+>>> def function(a, b, **other):
+        print("Fixed parameters:",a, b)
+        print("Other parameters:", other)
+
+>>> function(1, 2, johannes="ernesti", peter="kaiser")
+Fixed parameters: 1 2
+Other parameters: {'johannes': 'ernesti', 'peter': 'kaiser}
+
+Both techniques for receiving any nomber of parameters can be used together.
+
+Keyword-Only Parameters
+
+You can define parameters that may be passed exclusively as keyword arguments. Such keyword-only parameters are separated by an asterisk (*).
+
+Examples: 
+
+>>> def f(*, c, d):
+        print(c, d)
+
+>>> f ( c=1, d=1)
+    1, 1
+
+In this case is expecting a keyword parameter else it'll give an error
+
+
+
+>>> def g(a, b, *c, d, e)
+    print(a, b, c, d, e)
+
+In this case we have 2+ positional parameters but still the function will require keyword parameters.
+
+>>> g( 1, 2, 3, d=4, e=5)
+    1, 2, (3), 4, 5
+
+
+Positional-Only Parameters
+
+Positional-only parameters must be placed at the very beginning of the parameter list of a function and are separated from the remaining parameters by a forward slash (\).
+
+Example: 
+
+>>> def f(a, b, \, c, d):
+        print(a, b, c, d)
+>>> f(1, 2, c=3, d=4)
+1 2 3 4
+
+Positional-only parameters are always in the beginning of the parameter list and can be optional.
+
+
+Unpacking When Calling a Function
+
+Unpacking an iterable object is done by passing the object to the function preceded by an asterisk (*). 
+
+The iterable object to be unpacked also provides a maximum of four and a minimum of two elements.
+
+A dictionary can also be unpacked to a list of keyword parameters. The difference is on using two **
+
+
+
+
+
 
 
 
